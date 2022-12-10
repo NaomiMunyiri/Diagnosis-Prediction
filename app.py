@@ -8,9 +8,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from forms import UserForm,LoginForm,RisksForm
 import numpy as np
 import pickle
-from joblib import load
+#from joblib import load
 from numpy import int64
-import pandas
+#import pandas
 
 app= Flask(__name__) #creates instance of flask
 #add database

@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% block title %} Risk Factors Form {%endblock%}
+{% block content %}
+<div class="container">
+    
+
+    {% if name %}
+        <h1>Hello {{ name }}!!</h1>
+
+    {% else %}
+    
+    {% for message in get_flashed_messages()%}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"aria-label="Close"></button>
+        </div>
+
+    {% endfor %}
+        <h1 align="center">Please Fill In the Form Below</h1>
+        <h6 align="center"><strong><em>For and checkboxes, select if your answer is 'Yes'. If 'No', leave blank.</strong></em></h6>
+        <br/>
+    <div class="shadow p-3 mb-5 bg-body rounded">
+        <form action='/risk/add' method ="POST">
+            <link rel="stylesheet" href="static/css/style.css">
+            {{form.hidden_tag()}}
+            <div class="row g-3">
+                <div class="col">
+                    {{form.email(class="form-control", placeholder="What is your account mail?")}}
+                </div>
+
+                <div class="col">
+                    {{form.age(class="form-control", placeholder="How old are you?")}}
+                </div>
+
+                <div class="col">
+                    {{form.sexual_partners_no(class="form-control", placeholder="How many sexual partners have you had?")}}
+                </div>
+            </div>
+            <br/>
+
+            <div class="row g-3">
+                <div class="col">
+                    {{form.sexual_partners_age(class="form-control", placeholder="How old were you when you first had sexual intercourse?")}}
+                </div>
+                
+                <div class="col">
+                    {{form.pregnancies(class="form-control", placeholder="How many pregnancies have you had?")}}
+                </div>
+            </div>
+            <br/>
+
+            <div class="row g-3">
+                <div class="col">
+                    {{form.smoked_years(class="form-control", placeholder="How many years have you smoked?")}}
+                </div>
+                
+                <div class="col">
+                    {{form.packs_year(class="form-control", placeholder="Estimated packs of cigarrettes per year?")}}
+                </div>
+            </div>
+            <br/>
+
+            <div class="row g-3">
+                <div class="col">
+                    {{form.hormonal_contraceptives(class="form-control", placeholder="Years on hormonal contraceptives")}}
+                </div>
+                
+                <div class="col">
+                    {{form.IUD_years(class="form-control", placeholder="Years on IUD")}}
+                </div>
+            </div>
+
+            <br/>
+            {{form.STD.label(class="form-label")}}
+            {{form.STD(class="form-check-input")}}
+            <br/><br/>
+
+            <div class="row g-3">
+                <div class="col">
+                    {{form.STD_number(class="form-control", placeholder="How many STDs have you had?")}}
+                </div>
+            </div>
+            <br/>
+
+            <p><strong>Have you been tested positive for any of the following Sexually Transmitted Diseases(STDs)</strong></p>
+            &nbsp;
+            {{form.Condylomatosis.label(class="form-label")}}
+            {{form.Condylomatosis(class="form-check-input")}}
+            &nbsp;
+            &nbsp;
+            &nbsp;
+            
+            {{form.Vaginal.label(class="form-label")}}
+            {{form.Vaginal(class="form-check-input")}}
+
+
+            {{form.Vulvo.label(class="form-label")}}
+            {{form.Vulvo(class="form-check-input")}}
+            &nbsp;
+            &nbsp;
+            &nbsp;
+
+            {{form.Syphilis.label(class="form-label")}}
+            {{form.Syphilis(class="form-check-input")}}
+            &nbsp;
+            &nbsp;
+            &nbsp;
+
+            {{form.Pelvic.label(class="form-label")}}
+            {{form.Pelvic(class="form-check-input")}}
+
+            <br/><br/>
+            &nbsp;
+            {{form.Herpes.label(class="form-label")}}
+            {{form.Herpes(class="form-check-input")}}
+            &nbsp;
+            &nbsp;
+            &nbsp;
+
+            {{form.Molluscum.label(class="form-label")}}
+            {{form.Molluscum(class="form-check-input")}}
+            &nbsp;
+            &nbsp;
+            &nbsp;
+
+            {{form.HIV.label(class="form-label")}}
+            {{form.HIV(class="form-check-input")}}
+            &nbsp;
+            &nbsp;
+            &nbsp;
+
+
+            {{form.Hep.label(class="form-label")}}
+            {{form.Hep(class="form-check-input")}}
+            &nbsp;
+            &nbsp;
+            &nbsp;
+
+            {{form.HPV.label(class="form-label")}}
+            {{form.HPV(class="form-check-input")}}
+
+
+            <br/><br/>
+            <div class="row g-3">
+                <div class="col">
+                    {{form.STD_diagnosis(class="form-control", placeholder="Number of STD diagnosis'")}}
+                </div>
+            </div>
+
+            <br/>
+            <p> <strong>Have you tested positive for any of the following tests?</strong></p>
+            &nbsp;
+            {{form.Cancer.label(class="form-label")}}
+            {{form.Cancer(class="form-check-input")}}
+            &nbsp;
+            &nbsp;
+            &nbsp;
+
+            {{form.Cin.label(class="form-label")}}
+            {{form.Cin(class="form-check-input")}}
+            &nbsp;
+            &nbsp;
+            &nbsp;
+
+            {{form.DX_HPV.label(class="form-label")}}
+            {{form.DX_HPV(class="form-check-input")}}
+            &nbsp;
+            &nbsp;
+            &nbsp;
+
+            {{form.Dx.label(class="form-label")}}
+            {{form.Dx(class="form-check-input")}}
+            &nbsp;
+            &nbsp;
+            &nbsp;
+
+            {{form.Hinselmann.label(class="form-label")}}
+            {{form.Hinselmann(class="form-check-input")}}
+            &nbsp;
+            &nbsp;
+            &nbsp;
+
+            {{form.Schiller.label(class="form-label")}}
+            {{form.Schiller(class="form-check-input")}}
+            &nbsp;
+            &nbsp;
+            &nbsp;
+
+            {{form.Citology.label(class="form-label")}}
+            {{form.Citology(class="form-check-input")}}
+
+            <br/><br/>
+            {{form.submit(class="btn btn-secondary")}}
+
+
+            class: {{x}} <br>
+
+
+        </form>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

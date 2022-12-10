@@ -215,5 +215,3 @@ class Users(db.Model, UserMixin):
     # Create A String
     def __repr__(self):
         return '<Name %r>' % self.name
-
-

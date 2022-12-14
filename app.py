@@ -10,7 +10,7 @@ import numpy as np
 import pickle
 #from joblib import load
 from numpy import int64
-#import pandas
+import pandas as pd
 
 app= Flask(__name__) #creates instance of flask
 #add database
@@ -21,7 +21,7 @@ db=SQLAlchemy(app)
 migrate=Migrate(app,db)
 
 #load model
-model=pickle.load(open('cancermodel.sav','rb'))
+model=pickle.load(open('cancermodel2.sav','rb'))
 
 
 #flask login
@@ -85,12 +85,15 @@ def add_risk():
         form=RisksForm(formdata=None)#clears the form
         flash("Variables added successfully!")
 
-        x = model.predict([[form.age.data,form.sexual_partners_no.data,form.sexual_partners_age.data,
+        x=pd.DataFrame([[form.age.data,form.sexual_partners_no.data,form.sexual_partners_age.data,
         form.pregnancies.data,form.smoked_years.data,form.packs_year.data,form.hormonal_contraceptives.data,form.IUD_years.data,
         form.STD.data,form.STD_number.data,form.Condylomatosis.data,form.Vaginal.data,form.Vulvo.data,form.Syphilis.data,
-        form.Pelvic.data,form.Herpes.data,form.HIV.data,form.Hep.data,form.HPV.data,form.STD_diagnosis.data,
-        form.Cancer.data,form.Cin.data,form.DX_HPV.data,form.Dx.data,form.Hinselmann.data,form.Schiller.data,form.Citology.data]])
-        print("Cancer [0 - No Yes - 1] :\n Result : ",[x])
+        form.Pelvic.data,form.Herpes.data,form.Molluscum.data,form.HIV.data,form.Hep.data,form.HPV.data,form.STD_diagnosis.data,
+        form.Cancer.data,form.Cin.data,form.DX_HPV.data,form.Dx.data,form.Hinselmann.data,form.Schiller.data,form.Citology.data]],dtype=int64)
+
+
+        #p=model.predict(x)
+        #print("Cancer [0 - No Yes - 1] :\n Result : ",p[0])
                 
     return render_template("add_risk.html",**locals())
 

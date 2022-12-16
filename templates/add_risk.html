@@ -25,10 +25,6 @@
             {{form.hidden_tag()}}
             <div class="row g-3">
                 <div class="col">
-                    {{form.email(class="form-control", placeholder="What is your account mail?")}}
-                </div>
-
-                <div class="col">
                     {{form.age(class="form-control", placeholder="How old are you?")}}
                 </div>
 
@@ -192,11 +188,28 @@
             <br/><br/>
             {{form.submit(class="btn btn-secondary")}}
 
-
-            class: {{p}} {{age}} <br>
-
-
         </form>
+    </div>
+
+    <div class="shadow p-3 mb-5 bg-body rounded"> 
+        Results are either '0' or '1'<br>
+        [0 - Low Risk Probability ; High Risk Probability - 1] 
+        <br><br>
+        <h6>Result : {{p}} </h6><br>
+
+        {% if p=='' %}
+        <h6>Inconclusive</h6>
+        
+        {% elif p==0 %}
+        <h6>Low Risk Probability of Cervical Cancer biopsy being positive.</h6>
+
+        {% elif p==1 %}
+
+        <h6>High Risk Probability of Cervical Cancer biopsy being positive. Visit clinic centre to verify these results.</h6>
+
+        {% endif %}
+
+
     </div>
     {% endif %}
 </div>

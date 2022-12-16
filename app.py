@@ -21,7 +21,7 @@ db=SQLAlchemy(app)
 migrate=Migrate(app,db)
 
 #load model
-model=pickle.load(open('cancermodel2.sav','rb'))
+model=pickle.load(open('cancermodel.sav','rb'))
 
 
 #flask login
@@ -42,6 +42,14 @@ def index():
 def about():
     return render_template("about.html")
 
+@app.route('/results', methods=['GET','POST']) 
+def results():
+    email=request.form.get("email")
+    age=request.form.get("age")
+    print("Cancer [0 - No Yes - 1] :\n Result : ",p[0])
+
+    return render_template("results.html",email=email,age=age)
+
 
 #uploading risk form
 @app.route('/risk/add', methods=['GET','POST'])
@@ -49,7 +57,7 @@ def add_risk():
     form = RisksForm()
     if form.validate_on_submit():
         risk=Cervical_Cancer(
-                            email=form.email.data,
+                            #email=form.email.data,
                             age=form.age.data,
                             sexual_partners_no=form.sexual_partners_no.data,
                             sexual_partners_age=form.sexual_partners_age.data,
@@ -82,19 +90,31 @@ def add_risk():
                             Citology=form.Citology.data)
         db.session.add(risk)
         db.session.commit()
-        form=RisksForm(formdata=None)#clears the form
+        
         flash("Variables added successfully!")
 
-        x=pd.DataFrame([[form.age.data,form.sexual_partners_no.data,form.sexual_partners_age.data,
+        x=([[form.age.data,form.sexual_partners_no.data,form.sexual_partners_age.data,
         form.pregnancies.data,form.smoked_years.data,form.packs_year.data,form.hormonal_contraceptives.data,form.IUD_years.data,
         form.STD.data,form.STD_number.data,form.Condylomatosis.data,form.Vaginal.data,form.Vulvo.data,form.Syphilis.data,
         form.Pelvic.data,form.Herpes.data,form.Molluscum.data,form.HIV.data,form.Hep.data,form.HPV.data,form.STD_diagnosis.data,
-        form.Cancer.data,form.Cin.data,form.DX_HPV.data,form.Dx.data,form.Hinselmann.data,form.Schiller.data,form.Citology.data]],dtype=int64)
+        form.Cancer.data,form.Cin.data,form.DX_HPV.data,form.Dx.data,form.Hinselmann.data,form.Schiller.data,form.Citology.data]])
 
+        p=model.predict(x)
+        print("Cancer [0 - No Yes - 1] :\n Result : ",p[0])
+        if (p==0):
+            biop="High Negative Biopsy Result Probability"
+        elif (p==1):
+            biop="High Positive Biopsy Result Probability"
 
-        #p=model.predict(x)
-        #print("Cancer [0 - No Yes - 1] :\n Result : ",p[0])
-                
+        biopsy=Results(
+            email=current_user.email,
+            biopsy=biop
+        )
+        db.session.add(biopsy)
+        db.session.commit()
+
+        form=RisksForm(formdata=None)#clears the form             
+      
     return render_template("add_risk.html",**locals())
 
 #registering new user
@@ -141,6 +161,13 @@ def login():
 def dashboard():
     return render_template('dashboard.html')
 
+#history page
+@app.route('/history', methods=['GET','POST'])
+@login_required
+def history():
+    history=Results.query.filter_by(email=current_user.email)
+    return render_template('history.html',history=history)
+
 #logout page
 @app.route('/logout', methods=['GET','POST'])
 @login_required
@@ -150,13 +177,12 @@ def logout():
     return redirect(url_for('login'))
 
 
-
 #CLASS MODELS
 #database model
 class Cervical_Cancer(db.Model):
     id=db.Column(db.Integer, primary_key=True)#creates column s in database
     date_created=db.Column(db.DateTime, default=datetime.now)
-    email=db.Column(db.String,nullable=False)
+    #email=db.Column(db.String,nullable=False)
     age=db.Column(db.Integer, nullable=False)
     sexual_partners_no=db.Column(db.Integer, nullable=False)
     sexual_partners_age=db.Column(db.Integer, nullable=False)
@@ -191,7 +217,18 @@ class Cervical_Cancer(db.Model):
     #create function to return string when we add something
     def __repr__(self):
         return '<Age %r>' % self.id
- 
+
+
+#results model
+class Results(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    email=db.Column(db.String(120), nullable=False)
+    biopsy=db.Column(db.Integer, nullable=False)
+    date_predicted=db.Column(db.DateTime, default=datetime.now)
+    def __repr__(self):
+        return '<email %r>' % self.id
+
+
 #users model
 class Users(db.Model, UserMixin):
     first_name = db.Column(db.String(200), nullable=False)
@@ -218,3 +255,4 @@ class Users(db.Model, UserMixin):
     # Create A String
     def __repr__(self):
         return '<Name %r>' % self.name
+

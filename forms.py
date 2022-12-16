@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired, Email, EqualTo,InputRequired
 
 #Form risk
 class RisksForm(FlaskForm):
-    email=EmailField("What is your account mail",validators=[InputRequired()])
+    #email=EmailField("What is your account mail",validators=[InputRequired()])
     age=IntegerField("How old are you?", validators=[InputRequired()])
     sexual_partners_no=IntegerField("How many sexual partners have you had?", validators=[InputRequired()])
     sexual_partners_age=IntegerField("How old were you when you first had sexual intercourse?", validators=[InputRequired()])

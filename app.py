@@ -42,15 +42,6 @@ def index():
 def about():
     return render_template("about.html")
 
-@app.route('/results', methods=['GET','POST']) 
-def results():
-    email=request.form.get("email")
-    age=request.form.get("age")
-    print("Cancer [0 - No Yes - 1] :\n Result : ",p[0])
-
-    return render_template("results.html",email=email,age=age)
-
-
 #uploading risk form
 @app.route('/risk/add', methods=['GET','POST'])
 def add_risk():

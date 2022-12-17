@@ -2,25 +2,47 @@
 {% block title %} Welcome To The Diagnosis Prediction Model{%endblock%}
 {% block content %}
 
-       
-            <h1 align="center">Cervical Cancer Prediction Tool</h1>
 
-              <div class="card text-white " style="max-width: 5040px; background-color:#008080 ">
-                <div class="row no-gutters">
-                  <div class="col-md-4">
-                    <img src="static/images/ribbon3.webp" class="card-img" alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      
-                    </div>
-                  </div>
-                </div>
-              </div>
+<div class="card text-white " style="max-width: 5040px; max-height: 400px; background-color:#008080 ">
+  <div class="row no-gutters">
+    <div class="col-md-4">
+      <img src="static/images/ribbon3.webp" class="card-img" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h4 align="center">Cervical Cancer Prediction Tool</h4>
+        <h4 align="left" style="color:#008080" >What do we do?</h4><br/>
+        <h5 align="left"> This is an online tool that helps users </h5>
+        <h5 align="left">predict their cervical cancer biopsy </h5>
+        <h5 align="left">based on lifestyle and habits.</h5><br/>
+        <a class="btn btn-outline-light" href="{{ url_for('login')}}" type="submit"> <strong> > Start Predict </strong></a>&nbsp;
+    
+      </div>
+    </div>
+  </div>
+</div>
+          
+
+          
+        </div>
+        <div class="card-group">
+          <div class="card">
+            <div class="card-body">
+              <h4 align="center" style="color:#008080">How does it work?</h4><br/>
+              <h5 align="center"> We ask for some details about the user. </h5>
+              <h5 align="center"> We then use data about similar women in the past </h5>
+              <h5 align="center"> to show the likeliness of the user biopsy being positive or negative. </h5>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-body">
+              <h4 align="center" style="color:#008080">Who is it for?</h4><br/>
+              <h5 align="center"> It is for patients and their families </h5>
+              <h5 align="center"> Users should use it in consultation with a medical professional </h5>
+            </div>
+          </div>
+        </div>
+    
 
             
-        
-
 {% endblock %}

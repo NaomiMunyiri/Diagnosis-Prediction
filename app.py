@@ -102,9 +102,9 @@ def add_risk():
         p=model.predict(x)
         print("Cancer [0 - No Yes - 1] :\n Result : ",p[0])
         if (p==0):
-            biop="High Negative Biopsy Result Probability"
+            biop="Negative Biopsy Result Probability"
         elif (p==1):
-            biop="High Positive Biopsy Result Probability"
+            biop="Positive Biopsy Result Probability"
 
         biopsy=Results(
             email=current_user.email,

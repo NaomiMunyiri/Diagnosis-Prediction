@@ -13,23 +13,6 @@
 		
 	{% endfor %}
 
-
-	{% if name %}
-		<h1>User Added!</h1>
-		<br/><br/>
-	<table class="table table-hover table-bordered table-striped">
-
-	{% for our_user in our_users %}
-		<tr>
-		<td>{{ our_user.id }}. <a href="{{ url_for('update', id=our_user.id)}}">{{ our_user.name }}</a> - {{ our_user.email }} - {{ our_user.favorite_color }} - 
-			<a href="{{ url_for('delete', id=our_user.id)}}">Delete</a></td>
-		</tr>
-	{% endfor %}
-
-	</table>
-		
-
-	{% else %}
 		<h1 align="center">Register Your Details Below:</h1>
 		<br/>
 	<div class="shadow p-3 mb-5 bg-body rounded">
@@ -66,6 +49,5 @@
 
 		</form>
 	</div>
-	{% endif %}
 </div>
 {% endblock %}
